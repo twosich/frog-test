@@ -2,8 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:dart_frog/dart_frog.dart';
 
-List<String> imageLinks =
-    []; // Lista para almacenar los enlaces de las imágenes
+List<String> imageLinks = [];
 
 Future<Response> onRequest(RequestContext context) async {
   if (context.request.method == HttpMethod.post) {
@@ -16,7 +15,6 @@ Future<Response> onRequest(RequestContext context) async {
           statusCode: 400);
     }
 
-    // Filtrar enlaces de imágenes y agregar a la lista
     final List<String> newImageLinks = (data['attachments'] as List)
         .where((attachment) =>
             attachment['content_type'] != null &&
@@ -24,7 +22,7 @@ Future<Response> onRequest(RequestContext context) async {
         .map((attachment) => attachment['url'].toString())
         .toList();
 
-    imageLinks.addAll(newImageLinks); // Almacenar enlaces en la lista
+    imageLinks.addAll(newImageLinks);
 
     if (newImageLinks.isNotEmpty) {
       print('Links de imágenes: $newImageLinks');
@@ -36,7 +34,6 @@ Future<Response> onRequest(RequestContext context) async {
         body: {'message': 'Recibido', 'image_links': newImageLinks});
   }
 
-  // Manejar solicitudes GET para obtener los enlaces de las imágenes
   if (context.request.method == HttpMethod.get) {
     return Response.json(body: {'image_links': imageLinks});
   }

@@ -1,13 +1,9 @@
 import 'package:mongo_dart/mongo_dart.dart';
 
-main() async {
+void main() async {
   var db = Db(
       "mongodb://mongo:HGNLpuVEFPGCWtrQDJmjcWLEzUUzeASD@mongodb.railway.internal:27017");
   await db.open();
-
-  print(
-    "Db is open: $db",
-  );
 
   await db.close();
 }

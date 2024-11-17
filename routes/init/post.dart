@@ -21,6 +21,9 @@ Future<Response> onRequest(RequestContext context) async {
           body: {'message': 'Usuario creado', 'user': nuevoUsuario},
           statusCode: 201);
 
+      await collection.Insert()
+      return 
+
     default:
       return Response.json(
           body: {'error': 'Método no permitido'}, statusCode: 405);
